@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface StreetTagRepository extends JpaRepository<StreetTag, Long> {
 
-    List<StreetTag> findByPrivacy(Privacy privacy);
+    List<StreetTag> findAllByIdAndPrivacy(Long id, Privacy privacy);
 }

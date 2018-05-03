@@ -28,7 +28,7 @@ public class StreetTagService {
     }
 
     public ArrayNode getPrivateTags(Long id) {
-        List<StreetTag> privateTags = tagRepository.findByPrivacy(Privacy.PRIVATE);
+        List<StreetTag> privateTags = tagRepository.findAllByIdAndPrivacy(id, Privacy.PRIVATE);
         return packTagDetailsIntoJson(privateTags);
     }
 
