@@ -1,4 +1,4 @@
-package org.projectargus.argus_server.pictures;
+package org.projectargus.argus_server.tags.pictures;
 
 import org.projectargus.argus_server.tags.StreetTag;
 
