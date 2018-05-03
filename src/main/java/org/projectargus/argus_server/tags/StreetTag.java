@@ -1,6 +1,6 @@
 package org.projectargus.argus_server.tags;
 
-import org.projectargus.argus_server.pictures.TagPicture;
+import org.projectargus.argus_server.tags.pictures.TagPicture;
 import org.projectargus.argus_server.users.User;
 
 import javax.persistence.*;
@@ -20,6 +20,9 @@ public class StreetTag {
 
     @OneToOne
     private GeoData geoData;
+
+    @Enumerated(value = EnumType.STRING)
+    private Privacy privacy;
 
     public Long getId() {
         return id;
@@ -51,5 +54,13 @@ public class StreetTag {
 
     public void setGeoData(GeoData geoData) {
         this.geoData = geoData;
+    }
+
+    public Privacy getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(Privacy privacy) {
+        this.privacy = privacy;
     }
 }
