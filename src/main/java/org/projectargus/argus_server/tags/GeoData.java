@@ -32,6 +32,23 @@ public class GeoData {
 
     private float zoom;
 
+    public GeoData() {
+    }
+
+    public GeoData(StreetTag tag, BigDecimal longitude, BigDecimal latitude,
+                   BigDecimal altitude, BigDecimal targetLongitude, BigDecimal targetLatitude,
+                   float bearing, float tilt, float zoom) {
+        this.tag = tag;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.targetLongitude = targetLongitude;
+        this.targetLatitude = targetLatitude;
+        this.bearing = bearing;
+        this.tilt = tilt;
+        this.zoom = zoom;
+    }
+
     public Long getId() {
         return id;
     }
