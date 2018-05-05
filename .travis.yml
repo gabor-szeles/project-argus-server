@@ -1,0 +1,6 @@
+language: java
+deploy:
+  provider: heroku
+  on:
+    branch: deploy
+app: argus-server
