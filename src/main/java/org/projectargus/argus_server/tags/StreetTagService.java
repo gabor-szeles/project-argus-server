@@ -27,20 +27,19 @@ public class StreetTagService {
         this.pictureRepository = pictureRepository;
     }
 
-    public ArrayNode getPrivateTags(Long id) {
+    public ObjectNode getPrivateTags(Long id) {
         List<StreetTag> privateTags = tagRepository.findAllByIdAndPrivacy(id, Privacy.PRIVATE);
         return packTagDetailsIntoJson(privateTags);
     }
 
-    private ArrayNode packTagDetailsIntoJson(List<StreetTag> privateTags) {
+    private ObjectNode packTagDetailsIntoJson(List<StreetTag> privateTags) {
         ObjectMapper mapper = new ObjectMapper();
-        ArrayNode result = mapper.createArrayNode();
-        ObjectNode status = mapper.createObjectNode();
+        ObjectNode result = mapper.createObjectNode();
 
         if(privateTags.isEmpty()) {
-            status.put("found", false);
+            result.put("found", false);
         } else {
-            status.put("found", true);
+            result.put("found", true);
             for (StreetTag tag:privateTags) {
                 ObjectNode geoData = mapper.createObjectNode();
                 geoData.put("altitude", tag.getGeoData().getAltitude());
@@ -50,14 +49,13 @@ public class StreetTagService {
                 geoData.put("target-latitude", tag.getGeoData().getTargetLatitude());
                 geoData.put("target-longitude", tag.getGeoData().getTargetLongitude());
                 geoData.put("zoom", tag.getGeoData().getZoom());
-                result.add(geoData);
+                result.put("geo-data", geoData);
 
                 ObjectNode pictureData = mapper.createObjectNode();
                 pictureData.put("picture-data", tag.getPicture().getTagData());
-                result.add(pictureData);
+                result.put("tag-picture", pictureData);
             }
         }
-        result.add(status);
         return result;
     }
 }
