@@ -35,21 +35,29 @@ public class StreetTagService {
     private ArrayNode packTagDetailsIntoJson(List<StreetTag> privateTags) {
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode result = mapper.createArrayNode();
-        for (StreetTag tag:privateTags) {
-            ObjectNode geoData = mapper.createObjectNode();
-            geoData.put("altitude", tag.getGeoData().getAltitude());
-            geoData.put("bearing", tag.getGeoData().getBearing());
-            geoData.put("latitude", tag.getGeoData().getLatitude());
-            geoData.put("longitude", tag.getGeoData().getLongitude());
-            geoData.put("target-latitude", tag.getGeoData().getTargetLatitude());
-            geoData.put("target-longitude", tag.getGeoData().getTargetLongitude());
-            geoData.put("zoom", tag.getGeoData().getZoom());
-            result.add(geoData);
+        ObjectNode status = mapper.createObjectNode();
 
-            ObjectNode pictureData = mapper.createObjectNode();
-            pictureData.put("picture-data", tag.getPicture().getTagData());
-            result.add(pictureData);
+        if(privateTags.isEmpty()) {
+            status.put("found", false);
+        } else {
+            status.put("found", true);
+            for (StreetTag tag:privateTags) {
+                ObjectNode geoData = mapper.createObjectNode();
+                geoData.put("altitude", tag.getGeoData().getAltitude());
+                geoData.put("bearing", tag.getGeoData().getBearing());
+                geoData.put("latitude", tag.getGeoData().getLatitude());
+                geoData.put("longitude", tag.getGeoData().getLongitude());
+                geoData.put("target-latitude", tag.getGeoData().getTargetLatitude());
+                geoData.put("target-longitude", tag.getGeoData().getTargetLongitude());
+                geoData.put("zoom", tag.getGeoData().getZoom());
+                result.add(geoData);
+
+                ObjectNode pictureData = mapper.createObjectNode();
+                pictureData.put("picture-data", tag.getPicture().getTagData());
+                result.add(pictureData);
+            }
         }
+        result.add(status);
         return result;
     }
 }
