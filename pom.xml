@@ -18,7 +18,7 @@
         <version.maven.processor.plugin>2.2.4</version.maven.processor.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <appName>funfactorium</appName>
+        <appName>argus_server</appName>
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
 
@@ -35,7 +35,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.funfactorium.FunFactoriumLauncher</mainClass>
+                            <mainClass>org.projectargus.argus_server.LaunchServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -45,7 +45,7 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>1.1.1</version>
                 <configuration>
-                    <appName>funfactorium</appName>
+                    <appName>argus_server</appName>
                     <includeTarget>false</includeTarget>
                     <includes>
                         <include>${basedir}/${full-artifact-name}</include>
