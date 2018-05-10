@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.projectargus.argus_server.tags.pictures.TagPicture;
 import org.projectargus.argus_server.tags.pictures.TagPictureRepository;
+import org.projectargus.argus_server.users.UserRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ class StreetTagServiceTest {
     private static StreetTagRepository mockTagRepository;
     private static GeoDataRepository mockGeoDataRepository;
     private static TagPictureRepository mockPictureRepository;
+    private static UserRepository mockUserRepository;
 
     private static GeoData dummyGeoData;
     private static TagPicture mockPicture;
@@ -33,8 +35,10 @@ class StreetTagServiceTest {
         mockGeoDataRepository = mock(GeoDataRepository.class);
         mockPictureRepository = mock(TagPictureRepository.class);
         mockTagRepository = mock(StreetTagRepository.class);
+        mockUserRepository = mock(UserRepository.class);
 
-        testService = new StreetTagService(mockTagRepository, mockGeoDataRepository, mockPictureRepository);
+        testService = new StreetTagService(mockTagRepository, mockGeoDataRepository,
+                                            mockPictureRepository, mockUserRepository);
         mockTag = mock(StreetTag.class);
         mockPicture = mock(TagPicture.class);
         dummyGeoData = new GeoData(mockTag, BigDecimal.ONE, BigDecimal.ONE,
