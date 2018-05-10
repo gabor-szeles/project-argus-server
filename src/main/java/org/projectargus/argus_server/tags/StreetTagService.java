@@ -3,7 +3,10 @@ package org.projectargus.argus_server.tags;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.projectargus.argus_server.tags.pictures.TagPicture;
 import org.projectargus.argus_server.tags.pictures.TagPictureRepository;
+import org.projectargus.argus_server.users.User;
+import org.projectargus.argus_server.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +21,17 @@ public class StreetTagService {
     
     private TagPictureRepository pictureRepository;
 
+    private UserRepository userRepository;
+
     @Autowired
     public StreetTagService(StreetTagRepository tagRepository,
                             GeoDataRepository geoDataRepository,
-                            TagPictureRepository pictureRepository) {
+                            TagPictureRepository pictureRepository,
+                            UserRepository userRepository) {
         this.tagRepository = tagRepository;
         this.geoDataRepository = geoDataRepository;
         this.pictureRepository = pictureRepository;
+        this.userRepository = userRepository;
     }
 
     public ObjectNode getPrivateTags(Long id) {
@@ -57,5 +64,14 @@ public class StreetTagService {
             }
         }
         return result;
+    }
+
+    public void savePic(StreetTagDto streetTagDto) {
+        User admin = userRepository.findByUserName(streetTagDto.getUserName());
+        GeoData testGeoData = geoDataRepository.findOne(1L);
+        TagPicture newPic = new TagPicture(streetTagDto.getImageData().getBytes());
+        StreetTag testTag = new StreetTag(newPic, admin, testGeoData, Privacy.PRIVATE);
+        pictureRepository.save(newPic);
+        tagRepository.save(testTag);
     }
 }
