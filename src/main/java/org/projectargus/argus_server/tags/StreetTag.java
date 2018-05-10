@@ -6,10 +6,11 @@ import org.projectargus.argus_server.users.User;
 import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(name = "seq", initialValue = 2, allocationSize = 2)
 public class StreetTag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
 
     @OneToOne
@@ -23,6 +24,16 @@ public class StreetTag {
 
     @Enumerated(value = EnumType.STRING)
     private Privacy privacy;
+
+    public StreetTag() {
+    }
+
+    public StreetTag(TagPicture picture, User user, GeoData geoData, Privacy privacy) {
+        this.picture = picture;
+        this.user = user;
+        this.geoData = geoData;
+        this.privacy = privacy;
+    }
 
     public Long getId() {
         return id;

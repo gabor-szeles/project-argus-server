@@ -2,22 +2,27 @@ package org.projectargus.argus_server.tags.pictures;
 
 import org.projectargus.argus_server.tags.StreetTag;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(name = "seq", initialValue = 2, allocationSize = 2)
 public class TagPicture {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
 
     @OneToOne(mappedBy = "picture")
     private StreetTag tag;
 
     private byte[] tagData;
+
+    public TagPicture() {
+    }
+
+    public TagPicture( byte[] tagData) {
+        this.tagData = tagData;
+    }
 
     public Long getId() {
         return id;
